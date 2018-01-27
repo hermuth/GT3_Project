@@ -1,0 +1,104 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Unity Remote HTTP Webservice</title>
+    <meta name="description" content="Unity Remote HTTP Webservice">
+    <meta name="author content="SitePoint"">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <style>
+        html, body
+		{
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #display
+		{
+            padding-top: 5%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            font-family: Arial;
+            font-size: 32px;
+        }
+
+        #display > div
+		{
+            display: inline-block;
+            width: 49%;
+            height: 70%;
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        window.onload = function() {
+            if ("WebSocket" in window)
+			{
+                var ws = new WebSocket("ws://{0}:{1}/");
+
+                ws.onopen = function() {}
+
+                ws.onmessage = function(event)
+				{
+                    var receivedMessageData = event.data;
+
+                    var regexp = /^(.*)\((.*)\)/g;
+                    var match = regexp.exec(receivedMessageData);
+
+                    if (match[1] == "speed")
+					{
+                        document.getElementById("speed").innerHTML = match[2];
+                    }
+                    if (match[1] == "durability")
+					{
+                        document.getElementById("durability").innerHTML = match[2];
+                    }
+                };
+
+                ws.onclose = function() {
+                    console.log("Connection is closed...");
+                };
+            }
+			else
+			{
+                alert("WebSocket is not supported by your Browser!");
+            }
+
+
+            window.addEventListener("deviceorientation", deviceOrientationHandler, false);
+
+            function deviceOrientationHandler(eventData)
+			{
+                ws.send(
+                    "rot(" +
+                    eventData.alpha.toFixed(2) + ";" + 
+                    eventData.beta.toFixed(2) + ";" +
+                    eventData.gamma.toFixed(2) + ")"
+                );
+            }
+
+            var speedReqInterval = setInterval(function()
+			{
+                var messageData = "req(speed)";
+                ws.send(messageData);
+            }, 100);
+
+            var durabilityReqInterval = setInterval(function()
+			{
+                var messageData = "req(durability)";
+                ws.send(messageData);
+            }, 100);
+        };
+    </script>
+
+    <div id="display">
+         <div>Speed:<br><span id="speed">0 km/h</span></div><div>Durability:<br><span id="durability">100 %</span></div>
+    </div>
+</body>
+</html>

@@ -21,6 +21,16 @@ Folgende Scripte sind für das Remote Controll Modul nötig:
 WebServices.cs regelt die Kommunication Zwischen Smartphone und der Unity Anwendung.
 RemoteControll.cs interpretiert die Daten die vom WebServices.cs empfangen wurden.
 
+## Remote Controll Modul
+
+Folgende Scripte sind für das Remote Controll Modul nötig:
+
+- RemoteControll.cs
+- WebServices.cs
+
+WebServices.cs regelt die Kommunication Zwischen Smartphone und der Unity Anwendung.
+RemoteControll.cs interpretiert die Daten die vom WebServices.cs empfangen wurden.
+
 ## Known Issues
 
 - Lenkenachse-Maxima kehrt sich um beim bremsen / rückwärtsfahren

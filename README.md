@@ -10,7 +10,17 @@ Smartphone so halten das das Display zu einem zeigt.
 Nach vorne kippen zu beschleunigen, nach hinten kippen zum bremsen / rückwärtsfahren.
 Links, rechts drehen zum lenken.
 
+## Remote Controll Modul
+
+Folgende Scripte sind für das Remote Controll Modul nötig:
+
+- RemoteControll.cs
+- WebServices.cs
+
+WebServices.cs regelt die Kommunication Zwischen Smartphone und der Unity Anwendung.
+RemoteControll.cs interpretiert die Daten die vom WebServices.cs empfangen wurden.
+
 ## Known Issues
 
-- Lenkenachse kehrt sich um beim bremsen / rückwärtsfahren
+- Lenkenachse-Maxima kehrt sich um beim bremsen / rückwärtsfahren
 - Kein neustart zur Laufzeit möglich (man muss die Anwendung neu starten)
